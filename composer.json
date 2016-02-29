@@ -1,0 +1,37 @@
+{
+    "name": "codeblastr/users",
+    "description": "User management plugin for CakePHP 3.x",
+    "type": "cakephp-plugin",
+    "keywords": [
+        "cakephp",
+        "users",
+        "admin"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Richard Kersey",
+            "homepage": "http://www.richardkersey.com",
+            "role": "Author"
+        },
+        {
+            "name": "Others",
+            "homepage": "https://github.com/codeblastr/privileges/graphs/contributors"
+        }
+    ],
+    "require": {
+        "cakephp/cakephp": "~3.0",
+        "phpunit/phpunit": "~4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Users\\": "src",
+            "Users\\Test\\Fixture\\": "tests\\Fixture"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Users\\Test\\": "tests"
+        }
+    }
+}
