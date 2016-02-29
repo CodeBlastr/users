@@ -25,13 +25,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Users\\": "src",
-            "Users\\Test\\Fixture\\": "tests\\Fixture"
+            "CodeBlastr\\Users\\": "src",
+            "CodeBlastr\\Users\\Test\\Fixture\\": "tests\\Fixture"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Users\\Test\\": "tests"
+            "CodeBlastr\\Users\\Test\\": "tests"
         }
     }
 }
