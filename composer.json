@@ -1,6 +1,6 @@
 {
     "name": "codeblastr/users",
-    "description": "User management plugin for CakePHP 3.x",
+    "description": "User management plugin for CakePHP 3.x, which extends the CakeDC users plugin.",
     "type": "cakephp-plugin",
     "keywords": [
         "cakephp",
@@ -21,7 +21,8 @@
     ],
     "require": {
         "cakephp/cakephp": "~3.0",
-        "phpunit/phpunit": "~4.1"
+        "phpunit/phpunit": "~4.1",
+        "cakedc/users": "*"
     },
     "autoload": {
         "psr-4": {
