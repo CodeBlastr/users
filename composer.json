@@ -23,7 +23,8 @@
         "cakephp/cakephp": "~3.0",
         "cakedc/users": "*",
         "friendsofcake/crud": "~4.2",
-        "admad/cakephp-jwt-auth": "^2.0"
+        "admad/cakephp-jwt-auth": "^2.0",
+        "composer/installers": "~1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.1"
@@ -39,11 +40,9 @@
             "CodeBlastr\\Users\\Test\\": "tests"
         }
     },
-    {
-        "extra": {
-            "installer-paths": {
-                "vendor/{$name}": ["cakedc/users"]
-            }
+    "extra": {
+        "installer-paths": {
+            "vendor/{$name}": ["cakedc/users"]
         }
     },
     "minimum-stability": "dev",
