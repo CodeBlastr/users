@@ -21,7 +21,7 @@
     ],
     "require": {
         "cakephp/cakephp": "~3.0",
-        "cakedc/users": "*"
+        "cakedc/users": "*",
         "friendsofcake/crud": "~4.2",
         "admad/cakephp-jwt-auth": "^2.0"
     },
