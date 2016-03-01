@@ -16,7 +16,7 @@
         },
         {
             "name": "Others",
-            "homepage": "https://github.com/codeblastr/privileges/graphs/contributors"
+            "homepage": "https://github.com/codeblastr/users/graphs/contributors"
         }
     ],
     "require": {
@@ -37,6 +37,13 @@
     "autoload-dev": {
         "psr-4": {
             "CodeBlastr\\Users\\Test\\": "tests"
+        }
+    },
+    {
+        "extra": {
+            "installer-paths": {
+                "vendor/{$name}": ["cakedc/users"]
+            }
         }
     },
     "minimum-stability": "dev",
