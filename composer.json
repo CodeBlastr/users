@@ -20,12 +20,11 @@
         }
     ],
     "require": {
-        "cakephp/cakephp": "~3.0",
+        "cakephp/cakephp": "~3.2",
         "friendsofcake/crud": "~4.2",
         "admad/cakephp-jwt-auth": "^2.0",
-        "cakedc/users": "*"
-    },
-    "require-dev": {
+        "cakedc/users": "*",
+
         "phpunit/phpunit": "~4.1"
     },
     "autoload": {
