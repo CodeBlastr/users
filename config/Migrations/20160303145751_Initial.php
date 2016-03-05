@@ -1,16 +1,15 @@
 <?php
-
 use Migrations\AbstractMigration;
 
-class CreateUsers extends AbstractMigration
+class Initial extends AbstractMigration
 {
     public function up()
     {
         $table = $this->table('users', ['id' => false, 'primary_key' => ['id']]);
         $table
-            ->addColumn('id', 'char', [
+            ->addColumn('id', 'uuid', [
                 'default' => null,
-                'limit' => 36,
+                'limit' => null,
                 'null' => false,
             ])
             ->addColumn('username', 'string', [
@@ -64,11 +63,13 @@ class CreateUsers extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('active', 'boolean', [
-                'default' => false,
+                'default' => 0,
+                'limit' => null,
                 'null' => false,
             ])
             ->addColumn('is_superuser', 'boolean', [
-                'default' => false,
+                'default' => 0,
+                'limit' => null,
                 'null' => false,
             ])
             ->addColumn('role', 'string', [
@@ -86,12 +87,18 @@ class CreateUsers extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
+            ->addIndex(
+                [
+                    'username',
+                ],
+                ['unique' => true]
+            )
             ->create();
+
     }
 
     public function down()
     {
-        $this->dropTable('social_accounts');
         $this->dropTable('users');
     }
 }
