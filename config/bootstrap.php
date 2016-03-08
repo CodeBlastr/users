@@ -1,5 +1,12 @@
 <?php
 
+
+// In config/bootstrap.php
+use Cake\Database\Type;
+
+Type::map('json', 'CodeBlastr\Users\Database\Type\JsonType');
+
+
 //use Cake\Core\Configure;
 //use Cake\Log\Log;
 //use Cake\Core\Exception\MissingPluginException;

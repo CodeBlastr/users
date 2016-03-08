@@ -42,7 +42,7 @@ class Initial extends AbstractMigration
                 'limit' => 255,
                 'null' => true,
             ])
-            ->addColumn('token_expires', 'datetime', [
+            ->addColumn('token_expires', 'timestamp', [
                 'default' => null,
                 'limit' => null,
                 'null' => true,
@@ -52,23 +52,23 @@ class Initial extends AbstractMigration
                 'limit' => 255,
                 'null' => true,
             ])
-            ->addColumn('activation_date', 'datetime', [
+            ->addColumn('activation_date', 'timestamp', [
                 'default' => null,
                 'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('tos_date', 'datetime', [
+            ->addColumn('tos_date', 'timestamp', [
                 'default' => null,
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('active', 'boolean', [
-                'default' => 0,
+                'default' => false,
                 'limit' => null,
                 'null' => false,
             ])
             ->addColumn('is_superuser', 'boolean', [
-                'default' => 0,
+                'default' => false,
                 'limit' => null,
                 'null' => false,
             ])
@@ -77,12 +77,27 @@ class Initial extends AbstractMigration
                 'limit' => 255,
                 'null' => true,
             ])
-            ->addColumn('created', 'datetime', [
+            ->addColumn('data', 'json', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('creator_id', 'uuid', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('modifier_id', 'uuid', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('created', 'timestamp', [
                 'default' => null,
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('modified', 'datetime', [
+            ->addColumn('modified', 'timestamp', [
                 'default' => null,
                 'limit' => null,
                 'null' => false,
