@@ -1,7 +1,7 @@
 <?php
 namespace CodeBlastr\Users\Controller\Api;
 
-use CodeBlastr\Users\Controller\Api;
+//use CodeBlastr\Users\Controller\Api\AppController;
 use Cake\Event\Event;
 use Cake\Network\Exception\UnauthorizedException;
 use Cake\Utility\Security;
@@ -11,12 +11,15 @@ class UsersController extends AppController
 {
     public function initialize()
     {
+
         parent::initialize();
-        $this->Auth->allow(['add', 'token', 'index']);
+
+        $this->Auth->allow(['add', 'token']);
     }
 
     public function add()
     {
+        // eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3NDhjOWY0ZC1kYmY3LTRmMzgtODYyZi03ZTViMGE5OTBjNzkiLCJleHAiOjE0NTgyNzMyODd9.BelqElDZILatGypDVqw4Hh6EFZj5qMt2LzNBDftwsNk
         $this->Crud->on('afterSave', function (Event $event) {
             if ($event->subject->created) {
                 $this->set('data', [
@@ -32,6 +35,10 @@ class UsersController extends AppController
             }
         });
         return $this->Crud->execute();
+    }
+
+    public function customers() {
+        $this->set('users', $this->Users->find('all'));
     }
 
     /**
