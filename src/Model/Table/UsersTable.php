@@ -9,6 +9,7 @@ use Cake\Datasource\EntityInterface;
 use ArrayObject;
 
 use Cake\ORM\RulesChecker;
+use Cake\ORM\Rule\IsUnique;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\I18n\Time;
@@ -82,7 +83,7 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['username']));
+        $rules->add($rules->isUnique(['username']), ['errorField' => 'username', 'message' => 'Username is already being used']);
         return $rules;
     }
 

@@ -6,6 +6,9 @@ use App\Controller\AppController;
 use CodeBlastr\Users\Model\Table;
 use Cake\Event\Event;
 
+//temp / delete
+use Cake\Core\Plugin;
+
 class UsersController extends AppController
 {
     use \Crud\Controller\ControllerTrait;
