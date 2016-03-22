@@ -2,11 +2,10 @@
 
 namespace CodeBlastr\Users\Controller;
 
-use App\Controller\AppController;
 use CodeBlastr\Users\Model\Table;
-use Cake\Event\Event;
+use CakeDC\Users\Controller\UsersController;
 
-class UsersController extends AppController
+class UsersController extends UsersController
 {
     use \Crud\Controller\ControllerTrait;
 
