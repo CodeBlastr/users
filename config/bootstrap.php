@@ -3,11 +3,13 @@
 
 // In config/bootstrap.php
 use Cake\Database\Type;
+use Cake\Core\Plugin;
+use Cake\Core\Configure;
 
 Type::map('json', 'CodeBlastr\Users\Database\Type\JsonType');
 
+Plugin::load('CakeDC/Users');
 
-//use Cake\Core\Configure;
 //use Cake\Log\Log;
 //use Cake\Core\Exception\MissingPluginException;
 //use Cake\Core\Plugin;
@@ -15,10 +17,10 @@ Type::map('json', 'CodeBlastr\Users\Database\Type\JsonType');
 //use Cake\ORM\TableRegistry;
 //use Cake\Routing\Router;
 //
-//Configure::load('CakeDC/Users.users');
-//collection((array)Configure::read('Users.config'))->each(function ($file) {
-//    Configure::load($file);
-//});
+Configure::load('CakeDC/Users.users');
+collection((array)Configure::read('Users.config'))->each(function ($file) {
+    Configure::load($file);
+});
 //
 //if (Configure::check('Users.auth')) {
 //    Configure::write('Auth.authenticate.all.userModel', Configure::read('Users.table'));
