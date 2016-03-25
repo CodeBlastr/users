@@ -5,27 +5,34 @@ namespace CodeBlastr\Users\Controller\Component;
 use CakeDC\Users\Controller\Component\UsersAuthComponent;
 //use CakeDC\Users\Exception\BadConfigurationException;
 //use Cake\Controller\Component;
-//use Cake\Core\Configure;
-use Cake\Event\Event;
-use Cake\Network\Request;
-use Cake\Routing\Router;
+use Cake\Core\Configure;
+//use Cake\Event\Event;
+//use Cake\Network\Request;
+//use Cake\Routing\Router;
 //use Cake\Utility\Hash;
 
 class UsersAuthComponent extends UsersAuthComponent
 {
 
     /**
+     * Overwritten to add the isPublicAuthorized()
+     * @todo This and isPublicAuthorized() have been submitted as a pull request to CakeDC/Users. Will probably remove both in the future.
+     */
+    public function initialize(array $config)
+    {
+        parent::initialize($config);
+        if (Configure::read('Users.publicAcl')) {
+            $this->isPublicAuthorized();
+        }
+    }
+
+
+    /**
      * Check Public Access
      *
      * ### Usage
-     * Add this to your AppController
-     * ```php
-     * public function beforeFilter(Event $event) {
-     *     $this->UsersAuth->isPublicAuthorized($event);
-     * }
-     * ```
      *
-     * Your permssions config should return '*' or 'public' for roles allowed.
+     * Your permssions config should return '*' or 'public' for role(s) allowed.
      *
      * Ex. In permissions.php for SimpleRbacAuthorize
      * ```php
@@ -37,15 +44,14 @@ class UsersAuthComponent extends UsersAuthComponent
      *         'allowed' => true,
      *     ]];
      *
-     * @param Event $event
      * @return bool
      */
-    public function isPublicAuthorized(Event $event)
+    public function isPublicAuthorized()
     {
         $isAuthorized = null;
         if (empty($this->_registry->getController()->Auth->user())) {
-            $controller = $event->subject();
-            $isAuthorized = $this->_registry->getController()->Auth->isAuthorized(['role' => 'public'], $controller->request);
+            $controller = $this->_registry->getController();
+            $isAuthorized = $controller->Auth->isAuthorized(['role' => 'public'], $controller->request);
             if ($isAuthorized === true) {
                 $this->_registry->getController()->Auth->allow();
             }
