@@ -31,6 +31,12 @@
                     <p><?= h($user->api_token) ?></p>
                     <h6 class="subheader"><?= __('Role') ?></h6>
                     <p><?= h($user->role) ?></p>
+                    <h6 class="subheader"><?= __('Data') ?></h6>
+                    <p><?= h($user->data) ?></p>
+                    <h6 class="subheader"><?= __('Creator Id') ?></h6>
+                    <p><?= h($user->creator_id) ?></p>
+                    <h6 class="subheader"><?= __('Modifier Id') ?></h6>
+                    <p><?= h($user->modifier_id) ?></p>
                 </div>
             </div>
         </div>

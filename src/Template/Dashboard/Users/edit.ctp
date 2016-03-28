@@ -30,6 +30,9 @@
             echo $this->Form->input('active');
             echo $this->Form->input('is_superuser');
             echo $this->Form->input('role');
+            echo $this->Form->input('data');
+            echo $this->Form->input('creator_id');
+            echo $this->Form->input('modifier_id');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit'), ['class' => 'btn-success']) ?>
