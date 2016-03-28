@@ -5,6 +5,8 @@
 use Cake\Database\Type;
 use Cake\Core\Plugin;
 use Cake\Core\Configure;
+use Cake\Event\EventManager;
+//use CodeBlastr\Users\Event\UserInjector;
 
 Type::map('json', 'CodeBlastr\Users\Database\Type\JsonType');
 
@@ -16,12 +18,18 @@ Plugin::load('CakeDC/Users');
 //use Cake\Event\EventManager;
 //use Cake\ORM\TableRegistry;
 //use Cake\Routing\Router;
-//
+
+
 Configure::load('CakeDC/Users.users');
 collection((array)Configure::read('Users.config'))->each(function ($file) {
     Configure::load($file);
 });
-//
+
+// Attach the UserInjector object to the User's event manager
+//$injector = new UserInjector();
+//EventManager::instance()->on($injector);
+
+
 //if (Configure::check('Users.auth')) {
 //    Configure::write('Auth.authenticate.all.userModel', Configure::read('Users.table'));
 //}
