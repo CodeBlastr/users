@@ -30,7 +30,7 @@ class UsersTable extends Table
     {
         parent::initialize($config);
         $this->table('users');
-        $this->displayField('id');
+        $this->displayField('full_name');
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
     }
@@ -123,7 +123,8 @@ class UsersTable extends Table
      * @url http://stackoverflow.com/questions/8808902/best-way-to-split-a-first-and-last-name-in-php
      * @param $str
      */
-    protected function _splitName($str, $position = 2) {
+    protected function _splitName($str, $position = 2)
+    {
         // 0 full name string
         // 1 prefix (eg. Mr.)
         // 2 first name
