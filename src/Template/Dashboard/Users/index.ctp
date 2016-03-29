@@ -1,12 +1,14 @@
-<h1>CodeBlastr bake</h1>
-<div class="actions columns col-lg-2 col-md-3">
-    <h3><?= __('Actions') ?></h3>
-    <ul class="nav nav-stacked nav-pills">
-        <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?></li>
-        <li class="active disabled"><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
-    </ul>
-</div>
-<div class="users index col-lg-10 col-md-9 columns">
+
+
+<?php
+@$sidebar['append'] .= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'list-group-item']);
+@$sidebar['append'] .= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'list-group-item active disabled']);
+
+
+$this->set('sidebar', $sidebar);
+?>
+
+<div class="users index columns">
     <div class="table-responsive">
         <table class="table table-striped">
         <thead>
@@ -42,12 +44,5 @@
         </tbody>
         </table>
     </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-        </ul>
-        <p><?= $this->Paginator->counter() ?></p>
-    </div>
+    <?= $this->element('Themes/Dashboard/paging') ?>
 </div>
