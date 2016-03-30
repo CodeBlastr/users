@@ -8,7 +8,14 @@ use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use ReflectionClass;
 use ReflectionMethod;
+use Cake\Network\Request;
 
+/**
+ * Class PermissionsController
+ *
+ * @package CodeBlastr\Users\Controller\Dashboard
+ * @todo Support owner permissions via the ui
+ */
 class PermissionsController extends AppController
 {
     /**
@@ -34,10 +41,70 @@ class PermissionsController extends AppController
         }
         $this->set('roles', $roles);
 
+        $this->_dump();
+        $this->_data($permissions, $roles);
+    }
+
+    /**
+     * Dump permissions to the permissions config file
+     *
+     * @return bool
+     */
+    protected function _dump() {
         if ($this->request->is('post')) {
-            debug($this->request->data);
-            debug('write permissions file');
-            exit;
+            $i = 0;
+            foreach ($this->request->data['permission'] as $permission) {
+                if ($permission['allowed'] === '1') {
+                    unset($permission['allowed']); // not needed until we do owner permissions : https://github.com/CakeDC/users/blob/master/Docs/Documentation/OwnerRule.md
+                    if ($permission['plugin'] === '0') {
+                        unset($permission['plugin']);
+                    }
+                    $data['Users.SimpleRbac.permissions'][] = $permission;
+                }
+            }
+            $contents = '<?php' . "\n" . 'return ' . var_export($data, true) . ';';
+            $filename = $this->_getFilePath();
+            if (file_put_contents($filename, $contents) > 0) {
+                $this->Flash->success(__('Permissions updated'));
+                $this->redirect($this->request->here); // reloads the permissions file so that the form shows latest data
+            } else {
+                $this->Flash->error(__('Error, please try again'));
+            }
+        }
+    }
+
+    /**
+     * get file path, but only works for multisite setup
+     */
+    protected function _getFilePath() {
+        return ROOT . DS . SITE_DIR . DS . 'config' . DS . 'permissions.php';
+    }
+
+    /**
+     * Sets $this->request->data for use in form fields
+     * as a ui for managing permissions.
+     *
+     * @param array $permissions
+     * @param array $roles
+     */
+    protected function _data(array $permissions, array $roles) {
+        $this->request->data = null;
+        // setup form checkboxes data, note: the order of foreaches in the template have to match this (because we rely on $i)
+        $i = 0;
+        foreach ($permissions as $plugin => $controller) {
+            foreach ($controller as $name => $actions) {
+                foreach ($actions as $action) {
+                    foreach ($roles as $role) {
+                        $plugin = empty($plugin) ? $plugin = null : $plugin;
+                        $request = new Request(['params' => ['plugin' => $plugin, 'controller' => str_replace('Controller', '', $name), 'action' => $action]]);
+                        $result = $this->Auth->isAuthorized(['role' => $role], $request);
+                        if ($result === true) {
+                            $this->request->data['permission'][$i]['allowed'] = true;
+                        }
+                        $i++;
+                    }
+                }
+            }
         }
     }
 

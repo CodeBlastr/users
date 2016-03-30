@@ -6,7 +6,7 @@
 
 
 @$sidebar['append'] .= $this->Html->link(__('List Users'), ['controller' => 'users', 'action' => 'index'], ['class' => 'list-group-item']);
-@$sidebar['append'] .= $this->Html->link(__('Manage Permissions'), ['action' => 'index'], ['class' => 'list-group-item disabled active']);
+@$sidebar['append'] .= $this->Html->link(__('List Permissions'), ['action' => 'index'], ['class' => 'list-group-item disabled active']);
 
 $this->set('sidebar', $sidebar);
 
@@ -31,7 +31,7 @@ $this->set('sidebar', $sidebar);
                     <?php foreach ($controller as $name => $actions) : ?>
                         <tbody>
                             <tr>
-                                <td  class="info" colspan="<?= count($roles)+1 ?>"><?= str_replace('Controller', '', $name); ?></td>
+                                <td class="info" colspan="<?= count($roles)+1 ?>"><?= str_replace('Controller', '', $name); ?></td>
                             </tr>
                             <?php foreach ($actions as $action) : ?>
                                 <tr>
