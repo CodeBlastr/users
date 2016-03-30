@@ -23,20 +23,22 @@ class PermissionsController extends AppController
      */
     public function index()
     {
-        $settings = Configure::read('Users.SimpleRbac.permissions');
-        debug($settings);
-
-        $permissions = $this->_collectPermissions();
-        debug($permissions);
-
+        $this->set('settings', $settings = Configure::read('Users.SimpleRbac.permissions'));
+        $this->set('permissions', $permissions = $this->_collectPermissions());
+        //debug($settings);
         $users = TableRegistry::get('Users');
-        $results = $users->find()->select('role')->distinct('role')->extract('role')->toArray();
-        debug($results);
 
-        debug('Then we can build the ui');
+        $roles = $users->find()->select('role')->distinct('role')->extract('role')->toArray();
+        if (Configure::read('Users.publicAcl') === true) {
+            $roles = array_merge($roles, ['public']);
+        }
+        $this->set('roles', $roles);
 
-        debug('Then we can write the permissions file by merging the new settings with the existing settings');
-        exit;
+        if ($this->request->is('post')) {
+            debug($this->request->data);
+            debug('write permissions file');
+            exit;
+        }
     }
 
     /**
@@ -59,7 +61,7 @@ class PermissionsController extends AppController
         $plugins = Plugin::loaded();
         foreach ($plugins as $plugin) {
             $path = App::path('Controller', $plugin);
-            if ($action = $this->_getPermissions($path[0])) {
+            if ($action = $this->_getPermissions($path[0], $plugin)) {
                 $actions = array_merge($actions, $action);
             }
         }
@@ -70,11 +72,12 @@ class PermissionsController extends AppController
      * Get all the actions that can have permissions managed
      *
      * @param string $path
-     * @param array $actions
+     * @param mixed $plugin Plugin name string
      * @return array
      */
-    protected function _getPermissions(string $path, array $actions = [])
+    protected function _getPermissions(string $path, $plugin = false)
     {
+        $actions = [];
         $controllers = $this->_getControllers($path);
         if (!empty($controllers)) {
             foreach ($controllers as $controller) {
@@ -82,7 +85,7 @@ class PermissionsController extends AppController
                 $class = new ReflectionClass($namespace . '\\' . pathinfo($controller)['filename']);
                 if (@$class->getDefaultProperties()['permissions'] === true) {
                     if ($action = $this->_getActions($class)) {
-                        $actions[] = $action;
+                        $actions[$plugin][pathinfo($controller)['filename']] = $action;
                     }
                 }
             }
@@ -150,15 +153,15 @@ class PermissionsController extends AppController
      * @param Object $class
      * @return array
      */
-    protected function _getActions(ReflectionClass $class)
+    protected function _getActions(ReflectionClass $class, $plugin = false)
     {
         $tryCrud = false;
         $actions = $class->getMethods(ReflectionMethod::IS_PUBLIC);
-        $results = [$class->getShortName() => []];
+        $results = [];
         $ignoreList = ['__construct', 'beforeRender', 'beforeFilter', 'afterFilter', 'initialize', 'invokeAction', 'isAction'];
         foreach ($actions as $action) {
             if ($action->class == $class->name && !in_array($action->name, $ignoreList)) {
-                array_push($results[$class->getShortName()], $action->name);
+                array_push($results, $action->name);
             }
             if (!in_array($action->name, $ignoreList)) {
                 $tryCrud = true;
@@ -178,13 +181,13 @@ class PermissionsController extends AppController
      * @param array $results
      * @return array
      */
-    protected function _addCrud(ReflectionClass $class, array $results)
+    protected function _addCrud(ReflectionClass $class, array $results, $plugin = false)
     {
         if (class_exists($class->name)) {
             $object = $class->name;
             $object = new $object();
             if (is_object($object->Crud)) {
-                $results[$class->getShortName()] = array_merge(array_keys($object->Crud->_config['actions']), $results[$class->getShortName()]);
+                $results = array_merge(array_keys($object->Crud->_config['actions']), $results);
             }
         }
         return $results;
