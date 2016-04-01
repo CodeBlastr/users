@@ -48,3 +48,4 @@ Router::plugin('CakeDC/Users', ['path' => '/users'], function ($routes) {
 Router::connect('/profile/*', ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'profile']);
 Router::connect('/login', ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'login']);
 Router::connect('/logout', ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'logout']);
+Router::connect('/dashboard/permissions/*', ['prefix' => 'dashboard', 'plugin' => 'CodeBlastr/Users', 'controller' => 'Permissions', 'action' => 'index']);

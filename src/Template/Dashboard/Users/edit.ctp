@@ -1,15 +1,15 @@
 
 <?php
-    @$sidebar['append'] .= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id], ['class' => 'active disabled list-group-item']);
-    @$sidebar['append'] .= $this->Form->postLink(
+    @$contextMenu['append'] .= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id], ['class' => 'active disabled list-group-item']);
+    @$contextMenu['append'] .= $this->Form->postLink(
                 __('Delete'),
                 ['action' => 'delete', $user->id],
                 ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'btn-danger list-group-item']
             );
-    @$sidebar['append'] .= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'list-group-item']);
-    @$sidebar['append'] .= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'list-group-item']);
+    @$contextMenu['append'] .= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'list-group-item']);
+    @$contextMenu['append'] .= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'list-group-item']);
 
-$this->set('sidebar', $sidebar);
+$this->set('contextMenu', $contextMenu);
 ?>
 
 <div class="users form columns">

@@ -1,9 +1,9 @@
 
 <?php
-    @$sidebar['append'] .= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'active disabled list-group-item']);
-    @$sidebar['append'] .= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'list-group-item']);
+    @$contextMenu['append'] .= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'active disabled list-group-item']);
+    @$contextMenu['append'] .= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'list-group-item']);
 
-$this->set('sidebar', $sidebar);
+$this->set('contextMenu', $contextMenu);
 ?>
 
 <div class="users form columns">

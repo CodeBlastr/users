@@ -1,11 +1,11 @@
 
 
 <?php
-@$sidebar['append'] .= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'list-group-item']);
-@$sidebar['append'] .= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'list-group-item active disabled']);
+@$contextMenu['append'] .= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'list-group-item']);
+@$contextMenu['append'] .= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'list-group-item active disabled']);
 
 
-$this->set('sidebar', $sidebar);
+$this->set('contextMenu', $contextMenu);
 ?>
 
 <div class="users index columns">

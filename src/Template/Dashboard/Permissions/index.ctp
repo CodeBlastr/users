@@ -12,17 +12,17 @@ $this->set('sidebar', $sidebar);
 
 ?>
 
-<div class="users index columns">
+<div class="permissions index columns">
     <div class="table-responsive">
         <?= $this->Form->create() ?>
-            <table class="table table-striped">
+            <table class="table table-striped table-condensed table-hover">
                 <?php $i = 0; ?>
                 <?php foreach ($permissions as $plugin => $controller) : ?>
                     <thead>
                         <tr>
-                            <td>
+                            <th>
                                 <?= !empty($plugin) ? $plugin : 'App'; ?>
-                            </td>
+                            </th>
                             <?php foreach ($roles as $role) : ?>
                                 <th><?= $role ?></th>
                             <?php endforeach; ?>
@@ -31,7 +31,7 @@ $this->set('sidebar', $sidebar);
                     <?php foreach ($controller as $name => $actions) : ?>
                         <tbody>
                             <tr>
-                                <td class="info" colspan="<?= count($roles)+1 ?>"><?= str_replace('Controller', '', $name); ?></td>
+                                <td class="success" colspan="<?= count($roles)+1 ?>"><?= str_replace('Controller', '', $name); ?></td>
                             </tr>
                             <?php foreach ($actions as $action) : ?>
                                 <tr>
@@ -53,8 +53,8 @@ $this->set('sidebar', $sidebar);
                     <tr>
                         <td class="active text-left" colspan="<?= count($roles)+1 ?>"><?= $this->Form->submit(__('Save Permissions'), ['class' => 'btn btn-primary']) ?></td>
                     </tr>
-                    <tr>
-                        <td colspan="<?= count($roles)+1 ?>"><br><br><br></td>
+                    <tr class="spacer">
+                        <td colspan="<?= count($roles)+1 ?>"></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

@@ -1,11 +1,11 @@
 
 <?php
-@$sidebar['append'] .= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'list-group-item']);
-@$sidebar['append'] .= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id], ['class' => 'list-group-item']);
-@$sidebar['append'] .= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'list-group-item']);
-@$sidebar['append'] .= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'btn-danger list-group-item']);
+@$contextMenu['append'] .= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'list-group-item']);
+@$contextMenu['append'] .= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id], ['class' => 'list-group-item']);
+@$contextMenu['append'] .= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'list-group-item']);
+@$contextMenu['append'] .= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'btn-danger list-group-item']);
 
-$this->set('sidebar', $sidebar);
+$this->set('contextMenu', $contextMenu);
 ?>
 <div class="users view columns">
     <h2><?= h($user->full_name) ?></h2>
@@ -19,6 +19,8 @@ $this->set('sidebar', $sidebar);
                     <p><?= h($user->username) ?></p>
                     <h6 class="subheader"><?= __('Email') ?></h6>
                     <p><?= h($user->email) ?></p>
+                    <h6 class="subheader"><?= __('Password') ?></h6>
+                    <p><?= h($user->password) ?></p>
                     <h6 class="subheader"><?= __('First Name') ?></h6>
                     <p><?= h($user->first_name) ?></p>
                     <h6 class="subheader"><?= __('Last Name') ?></h6>
