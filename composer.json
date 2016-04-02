@@ -29,13 +29,13 @@
     },
     "autoload": {
         "psr-4": {
-            "CodeBlastr\\Users\\": "src",
-            "CodeBlastr\\Users\\Test\\Fixture\\": "tests\\Fixture"
+            "GoBigUsery\\": "src",
+            "GoBigUsery\\Test\\Fixture\\": "tests\\Fixture"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "CodeBlastr\\Users\\Test\\": "tests"
+            "GoBigUsery\\Users\\Test\\": "tests"
         }
     },
     "minimum-stability": "dev",

@@ -17,18 +17,46 @@ $this->set('contextMenu', $contextMenu);
             echo $this->Form->input('first_name');
             echo $this->Form->input('last_name');
             echo $this->Form->input('token');
-            echo $this->Form->input('token_expires');
+            echo $this->Form->input('token_expires', ['type' => 'datepicker']);
             echo $this->Form->input('api_token');
-            echo $this->Form->input('activation_date');
-            echo $this->Form->input('tos_date');
+            echo $this->Form->input('activation_date', ['type' => 'datetimepicker']);
+            echo $this->Form->input('tos_date', ['type' => 'timepicker']);
             echo $this->Form->input('active');
             echo $this->Form->input('is_superuser');
             echo $this->Form->input('role');
-            echo $this->Form->input('data');
-            echo $this->Form->input('creator_id');
-            echo $this->Form->input('modifier_id');
         ?>
     </fieldset>
+
+    <div class="container">
+        <div class="row">
+            <div class='col-sm-6'>
+                <div class="form-group">
+                    <div class='input-group date' data-datepicker="true">
+                        <input type='text' class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class='col-sm-6'>
+                <div class="form-group">
+                    <div class='input-group date' data-timepicker="true">
+                        <input type='text' class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <?= $this->Form->button(__('Submit'), ['class' => 'btn-success']) ?>
     <?= $this->Form->end() ?>
 </div>
