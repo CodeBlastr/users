@@ -25,12 +25,12 @@ class UsersController extends AppController
         'page' => 1,
         'limit' => 10,
         'maxLimit' => 100,
-        'fields' => [
-            'id', 'username', 'active', 'created'
-        ],
-        'sortWhitelist' => [
-            'id', 'username'
-        ]
+//        'fields' => [
+//            'id', 'first_name', 'username', 'active', 'created'
+//        ],
+//        'sortWhitelist' => [
+//            'id', 'username'
+//        ]
     ];
 
     public function initialize()

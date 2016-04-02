@@ -17,7 +17,7 @@ use Cake\ORM\Entity;
  */
 class User extends Entity
 {
-    protected $_virtual = ['full_name'];
+    protected $_virtual = ['reverse_name'];
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -58,7 +58,11 @@ class User extends Entity
 
     protected function _getFullName()
     {
-        return $this->_properties['first_name'] . '  ' .
-        $this->_properties['last_name'];
+        return $this->_properties['first_name'] . ' ' . $this->_properties['last_name'];
+    }
+
+    protected function _getReverseName()
+    {
+        return !empty($this->_properties['first_name']) && !empty($this->_properties['last_name']) ? $this->_properties['last_name'] . ', ' .  $this->_properties['first_name'] : $this->_getFullName();
     }
 }
