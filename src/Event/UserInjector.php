@@ -1,5 +1,5 @@
 <?php
-namespace CodeBlastr\Users\Event;
+namespace CodeBlastrUsers\Event;
 
 use Cake\Event\EventListenerInterface;
 //use Cake\Controller\Component\AuthComponent;

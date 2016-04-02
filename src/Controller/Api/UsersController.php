@@ -1,7 +1,7 @@
 <?php
-namespace CodeBlastr\Users\Controller\Api;
+namespace CodeBlastrUsers\Controller\Api;
 
-//use CodeBlastr\Users\Controller\Api\AppController;
+//use CodeBlastrUsers\Controller\Api\AppController;
 use Cake\Event\Event;
 use Cake\Network\Exception\UnauthorizedException;
 use Cake\Utility\Security;

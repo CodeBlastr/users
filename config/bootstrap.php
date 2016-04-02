@@ -6,9 +6,9 @@ use Cake\Database\Type;
 use Cake\Core\Plugin;
 use Cake\Core\Configure;
 use Cake\Event\EventManager;
-//use CodeBlastr\Users\Event\UserInjector;
+//use CodeBlastrUsers\Event\UserInjector;
 
-Type::map('json', 'CodeBlastr\Users\Database\Type\JsonType');
+Type::map('json', 'CodeBlastrUsers\Database\Type\JsonType');
 
 Plugin::load('CakeDC/Users');
 

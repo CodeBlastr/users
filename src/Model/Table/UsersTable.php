@@ -1,8 +1,8 @@
 <?php
 
-namespace CodeBlastr\Users\Model\Table;
+namespace CodeBlastrUsers\Model\Table;
 
-//use CodeBlastr\Users\Model\Entity\User;
+//use CodeBlastrUsers\Model\Entity\User;
 ///use Cake\ORM\Query;
 use Cake\Event\Event;
 use Cake\Datasource\EntityInterface;
@@ -123,7 +123,7 @@ class UsersTable extends Table
      * @url http://stackoverflow.com/questions/8808902/best-way-to-split-a-first-and-last-name-in-php
      * @param $str
      */
-    protected function _splitName($str, $position = 2)
+    protected function _splitName($str, $position)
     {
         // 0 full name string
         // 1 prefix (eg. Mr.)

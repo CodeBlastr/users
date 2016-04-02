@@ -1,7 +1,7 @@
 <?php
 
 
-namespace CodeBlastr\Users\Database\Type;
+namespace CodeBlastrUsers\Database\Type;
 
 use Cake\Database\Driver;
 use Cake\Database\Type;

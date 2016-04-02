@@ -1,7 +1,7 @@
 <?php
-namespace CodeBlastr\Users\Test\TestCase\Controller\Dashboard;
+namespace CodeBlastrUsers\Test\TestCase\Controller\Dashboard;
 
-use CodeBlastr\Users\Controller\UsersController;
+use CodeBlastrUsers\Controller\UsersController;
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
@@ -16,7 +16,7 @@ class UsersControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'plugin.CodeBlastr/Users.users'
+        'plugin.CodeBlastrUsers.users'
     ];
 
     public function testNothing() {

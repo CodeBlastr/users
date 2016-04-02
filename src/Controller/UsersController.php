@@ -1,9 +1,9 @@
 <?php
 
-namespace CodeBlastr\Users\Controller;
+namespace CodeBlastrUsers\Controller;
 
 use CakeDC\Users\Controller\UsersController;
-use CodeBlastr\Users\Model\Table;
+use CodeBlastrUsers\Model\Table;
 
 class UsersController extends UsersController
 {

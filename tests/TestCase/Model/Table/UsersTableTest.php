@@ -1,7 +1,7 @@
 <?php
-namespace CodeBlastr\Users\Test\TestCase\Model\Table;
+namespace CodeBlastrUsers\Test\TestCase\Model\Table;
 
-use CodeBlastr\Users\Model\Table\UsersTable;
+use CodeBlastrUsers\Model\Table\UsersTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
@@ -14,7 +14,7 @@ class UsersTableTest extends TestCase
     /**
      * Test subject
      *
-     * @var \CodeBlastr\Users\Model\Table\UsersTable
+     * @var \CodeBlastrUsers\Model\Table\UsersTable
      */
     public $Users;
 
@@ -24,7 +24,7 @@ class UsersTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'plugin.CodeBlastr/Users.users'
+        'plugin.CodeBlastrUsers.users'
     ];
 
     /**
@@ -35,7 +35,7 @@ class UsersTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Users') ? [] : ['className' => 'CodeBlastr\Users\Model\Table\UsersTable'];
+        $config = TableRegistry::exists('Users') ? [] : ['className' => 'CodeBlastrUsers\Model\Table\UsersTable'];
         $this->Users = TableRegistry::get('Users', $config);
     }
 

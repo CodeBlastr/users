@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeBlastr\Users\Model\Entity;
+namespace CodeBlastrUsers\Model\Entity;
 
 use Cake\Auth\DefaultPasswordHasher;
 use Cake\ORM\Entity;

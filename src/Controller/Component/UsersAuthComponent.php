@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeBlastr\Users\Controller\Component;
+namespace CodeBlastrUsers\Controller\Component;
 
 use CakeDC\Users\Controller\Component\UsersAuthComponent;
 //use CakeDC\Users\Exception\BadConfigurationException;

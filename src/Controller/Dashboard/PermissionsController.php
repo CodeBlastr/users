@@ -1,5 +1,4 @@
 <?php
-namespace CodeBlastr\Users\Controller\Dashboard;
 
 use App\Controller\AppController;
 use Cake\Core\App;
@@ -13,7 +12,7 @@ use Cake\Network\Request;
 /**
  * Class PermissionsController
  *
- * @package CodeBlastr\Users\Controller\Dashboard
+ * @package CodeBlastrUsers\Controller\Dashboard
  * @todo Support owner permissions via the ui
  */
 class PermissionsController extends AppController

@@ -3,8 +3,8 @@
 use Cake\Routing\Router;
 
 
-Router::plugin('CodeBlastr/Users', ['path' => '/users'], function ($routes) {
-    $routes->resources('CodeBlastr/Users');
+Router::plugin('CodeBlastrUsers', ['path' => '/users'], function ($routes) {
+    $routes->resources('CodeBlastrUsers');
     //Router::connect('/api/users/register', ['controller' => 'Users', 'action' => 'add', 'prefix' => 'api']);
     $routes->fallbacks('DashedRoute');
 });
@@ -15,9 +15,9 @@ Router::plugin('CodeBlastr/Users', ['path' => '/users'], function ($routes) {
  * @url http://www.bravo-kernel.com/2015/04/how-to-add-jwt-authentication-to-a-cakephp-3-rest-api/
  */
 Router::prefix('api', function ($routes) {
-    $routes->plugin('CodeBlastr/Users', ['path' => '/users'], function ($routes) {
+    $routes->plugin('CodeBlastrUsers', ['path' => '/users'], function ($routes) {
         $routes->extensions(['json', 'xml']);
-        $routes->resources('CodeBlastr/Users');
+        $routes->resources('CodeBlastrUsers');
         //Router::connect('/api/users/register', ['controller' => 'Users', 'action' => 'add', 'prefix' => 'api']);
         $routes->fallbacks('DashedRoute');
     });
@@ -25,14 +25,14 @@ Router::prefix('api', function ($routes) {
 });
 
 Router::prefix('dashboard', function ($routes) {
-    $routes->plugin('CodeBlastr/Users', ['path' => '/users'], function ($routes) {
+    $routes->plugin('CodeBlastrUsers', ['path' => '/users'], function ($routes) {
         $routes->fallbacks('DashedRoute');
     });
     $routes->fallbacks('DashedRoute');
 });
 
-Router::plugin('CodeBlastr/Users', ['path' => '/users'], function ($routes) {
-    $routes->resources('CodeBlastr/Users');
+Router::plugin('CodeBlastrUsers', ['path' => '/users'], function ($routes) {
+    $routes->resources('CodeBlastrUsers');
     //Router::connect('/api/users/register', ['controller' => 'Users', 'action' => 'add', 'prefix' => 'api']);
     $routes->fallbacks('DashedRoute');
 });
@@ -48,4 +48,4 @@ Router::plugin('CakeDC/Users', ['path' => '/users'], function ($routes) {
 Router::connect('/profile/*', ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'profile']);
 Router::connect('/login', ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'login']);
 Router::connect('/logout', ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'logout']);
-Router::connect('/dashboard/permissions/*', ['prefix' => 'dashboard', 'plugin' => 'CodeBlastr/Users', 'controller' => 'Permissions', 'action' => 'index']);
+Router::connect('/dashboard/permissions/*', ['prefix' => 'dashboard', 'plugin' => 'CodeBlastrUsers', 'controller' => 'Permissions', 'action' => 'index']);

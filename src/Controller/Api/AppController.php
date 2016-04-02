@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeBlastr\Users\Controller\Api;
+namespace CodeBlastrUsers\Controller\Api;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;

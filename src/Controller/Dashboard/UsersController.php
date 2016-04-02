@@ -1,8 +1,8 @@
 <?php
-namespace CodeBlastr\Users\Controller\Dashboard;
+namespace CodeBlastrUsers\Controller\Dashboard;
 
 use App\Controller\AppController;
-use CodeBlastr\Users\Model\Table;
+use CodeBlastrUsers\Model\Table;
 use Cake\Core\Configure;
 
 class UsersController extends AppController

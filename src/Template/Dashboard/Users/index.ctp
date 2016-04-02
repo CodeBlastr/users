@@ -40,5 +40,5 @@ $this->set('contextMenu', $contextMenu);
         </tbody>
         </table>
     </div>
-    <?= $this->element('Themes/Dashboard/paging') ?>
+    <?= $this->element('CodeBlastrBootstrap.Dashboard/paging') ?>
 </div>
