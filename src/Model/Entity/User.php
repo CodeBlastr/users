@@ -17,7 +17,7 @@ use Cake\ORM\Entity;
  */
 class User extends Entity
 {
-    protected $_virtual = ['reverse_name'];
+    protected $_virtual = ['name', 'reverse_name'];
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

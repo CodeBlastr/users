@@ -4,6 +4,7 @@ namespace CodeBlastrUsers\Model\Table;
 
 //use CodeBlastrUsers\Model\Entity\User;
 ///use Cake\ORM\Query;
+use CakeDC\Users\Model\Table\UsersTable;
 use Cake\Event\Event;
 use Cake\Datasource\EntityInterface;
 use ArrayObject;
@@ -17,7 +18,7 @@ use Cake\I18n\Time;
 use Cake\Database\Schema\Table as Schema;
 
 
-class UsersTable extends Table
+class UsersTable extends UsersTable
 {
 
     /**
@@ -65,7 +66,7 @@ class UsersTable extends Table
 
         $validator
             ->requirePresence('password', 'create')
-            ->notEmpty('password');
+            ->allowEmpty('password');
 
         $validator
             ->boolean('active')
@@ -98,10 +99,12 @@ class UsersTable extends Table
      */
     public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options)
     {
+        debug(stackTrace());
         if (!empty($entity->tos)) {
             $entity->tos_date = Time::now();
             unset($entity->tos);
         }
+        debug($entity->password);
         if (!empty($entity->name)) {
             $entity->first_name = $this->_splitName($entity->name, 2);
             $entity->last_name = $this->_splitName($entity->name, 3);
@@ -113,6 +116,8 @@ class UsersTable extends Table
         if ($entity->isNew() && empty($entity->username) && !empty($entity->email)) {
             $entity->username = $entity->email;
         }
+        debug($entity);
+        exit;
         return true;
     }
 
@@ -133,7 +138,7 @@ class UsersTable extends Table
 
         $results = array();
         preg_match('#^(\w+\.)?\s*([\'\’\w]+)\s+([\'\’\w]+)\s*(\w+\.?)?$#', $str, $results);
-        return $results[$position];
+        return !empty($results[$position]) ? $results[$position] : $str;
     }
 
 }

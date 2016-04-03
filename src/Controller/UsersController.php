@@ -7,7 +7,7 @@ use CodeBlastrUsers\Model\Table;
 
 class UsersController extends UsersController
 {
-    use \Crud\Controller\ControllerTrait;
+    //use \Crud\Controller\ControllerTrait;
 
 //    public $paginate = [
 //        'page' => 1,

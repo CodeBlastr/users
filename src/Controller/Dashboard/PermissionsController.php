@@ -1,5 +1,7 @@
 <?php
 
+namespace CodeBlastrUsers\Controller\Dashboard;
+
 use App\Controller\AppController;
 use Cake\Core\App;
 use Cake\ORM\TableRegistry;
