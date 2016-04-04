@@ -31,7 +31,7 @@ $this->set('sidebar', $sidebar);
                     <?php foreach ($controller as $name => $actions) : ?>
                         <tbody>
                             <tr>
-                                <td class="success" colspan="<?= count($roles)+1 ?>"><?= str_replace('Controller', '', $name); ?></td>
+                                <td class="warning" colspan="<?= count($roles)+1 ?>"><?= str_replace('Controller', '', $name); ?></td>
                             </tr>
                             <?php foreach ($actions as $action) : ?>
                                 <tr>

@@ -7,9 +7,9 @@ use Cake\Core\App;
 use Cake\ORM\TableRegistry;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
+use Cake\Network\Request;
 use ReflectionClass;
 use ReflectionMethod;
-use Cake\Network\Request;
 
 /**
  * Class PermissionsController
