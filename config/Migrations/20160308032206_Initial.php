@@ -77,7 +77,7 @@ class Initial extends AbstractMigration
                 'limit' => 255,
                 'null' => true,
             ])
-            ->addColumn('data', 'json', [
+            ->addColumn('data', 'jsonb', [
                 'default' => null,
                 'limit' => null,
                 'null' => true,

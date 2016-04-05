@@ -12,7 +12,7 @@
 $this->set('contextMenu', $contextMenu);
 ?>
 
-<div class="users form columns">
+<div class="users form columns col-sm-8">
     <?= $this->Form->create($user); ?>
     <fieldset>
         <legend><?= __('Edit User') ?></legend>
@@ -20,11 +20,10 @@ $this->set('contextMenu', $contextMenu);
             echo $this->Form->input('name');
             echo $this->Form->input('email', ['require' => true, 'type' => 'email']);
             echo $this->Form->input('password', ['value' => false]);
-            echo $this->Form->input('active');
-            echo $this->Form->input('is_superuser');
-            echo $this->Form->input('role');
+            echo $this->Form->input('active', ['label' => 'Allow login?']);
+            echo $this->Form->input('notify', ['type' => 'radio', 'options' => ['yes' => 'yes', 'no' => 'no']]);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit'), ['class' => 'btn-success']) ?>
+    <?= $this->Form->button(__('Submit'), ['class' => 'btn-primary']) ?>
     <?= $this->Form->end() ?>
 </div>

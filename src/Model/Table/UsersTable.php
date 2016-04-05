@@ -3,7 +3,7 @@
 namespace CodeBlastrUsers\Model\Table;
 
 //use CodeBlastrUsers\Model\Entity\User;
-///use Cake\ORM\Query;
+use Cake\ORM\Query;
 use CakeDC\Users\Model\Table\UsersTable;
 use Cake\Event\Event;
 use Cake\Datasource\EntityInterface;
@@ -14,6 +14,7 @@ use Cake\ORM\Rule\IsUnique;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\I18n\Time;
+use Cake\Utility\Hash;
 
 use Cake\Database\Schema\Table as Schema;
 
@@ -140,5 +141,23 @@ class UsersTable extends UsersTable
         preg_match('#^(\w+\.)?\s*([\'\’\w]+)\s+([\'\’\w]+)\s*(\w+\.?)?$#', $str, $results);
         return !empty($results[$position]) ? $results[$position] : $str;
     }
+
+    /**
+     * Get distinct roles as a list
+     *
+     * #Usage
+     * $users = TableRegistry::get('CodeBlastrUsers.Users');
+     * $roles = $users->find('roles');
+     *
+     * @param Query $query
+     * @param array $options
+     * @return mixed
+     */
+    public function findRoles(Query $query, array $options)
+    {
+        $roles = $this->find()->select('role')->distinct('role')->extract('role')->toArray();
+        return Hash::combine($roles, '{n}', '{n}');
+    }
+
 
 }

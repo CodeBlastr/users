@@ -4,6 +4,7 @@ namespace CodeBlastrUsers\Controller\Dashboard;
 use App\Controller\AppController;
 use CodeBlastrUsers\Model\Table;
 use Cake\Core\Configure;
+use Cake\ORM\TableRegistry;
 
 class UsersController extends AppController
 {
@@ -46,5 +47,12 @@ class UsersController extends AppController
             ]
         ]);
         parent::initialize();
+    }
+
+    public function edit()
+    {
+        $users = TableRegistry::get('CodeBlastrUsers.Users');
+        $this->set('roles', $roles = $users->find('roles'));
+        return $this->Crud->execute();
     }
 }
