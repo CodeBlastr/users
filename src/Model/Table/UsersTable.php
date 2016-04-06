@@ -32,7 +32,7 @@ class UsersTable extends UsersTable
     {
         parent::initialize($config);
         $this->table('users');
-        $this->displayField('full_name');
+        $this->displayField('name');
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
     }
@@ -90,6 +90,31 @@ class UsersTable extends UsersTable
     }
 
     /**
+     * Before Marshal callback
+     * Event is fired before request data is converted into entities
+     *
+     * @param Event $event
+     * @param ArrayObject $data
+     * @param ArrayObject $options
+     */
+    public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $options)
+    {
+        if (!empty($data['name'])) {
+            $data['first_name'] = $this->_splitName($data['name'], 2);
+            $data['last_name'] = $this->_splitName($data['name'], 3);
+            unset($data['name']);
+        }
+        if (isset($data['password']) && empty($data['password'])) {
+            unset($data['password']);
+        }
+        if (!empty($data['tos'])) {
+            $data['tos_date'] = Time::now();
+            unset($data['tos']);
+        }
+        return $data;
+    }
+
+    /**
      * Before Save Callback
      *
      * If tos is incoming, changes it to the actual db column name and timestamp
@@ -100,25 +125,12 @@ class UsersTable extends UsersTable
      */
     public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options)
     {
-        debug(stackTrace());
-        if (!empty($entity->tos)) {
-            $entity->tos_date = Time::now();
-            unset($entity->tos);
-        }
-        debug($entity->password);
-        if (!empty($entity->name)) {
-            $entity->first_name = $this->_splitName($entity->name, 2);
-            $entity->last_name = $this->_splitName($entity->name, 3);
-            unset($entity->name);
-        }
         if ($entity->isNew() && empty($entity->email) && !empty($entity->username)) {
             $entity->email = $entity->username;
         }
         if ($entity->isNew() && empty($entity->username) && !empty($entity->email)) {
             $entity->username = $entity->email;
         }
-        debug($entity);
-        exit;
         return true;
     }
 

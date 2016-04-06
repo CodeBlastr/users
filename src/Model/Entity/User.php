@@ -56,7 +56,7 @@ class User extends Entity
         return (new DefaultPasswordHasher)->hash($password);
     }
 
-    protected function _getFullName()
+    protected function _getName()
     {
         return @$this->_properties['first_name'] . ' ' . @$this->_properties['last_name'];
     }
