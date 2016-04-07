@@ -7,6 +7,12 @@ use Cake\Database\Driver;
 use Cake\Database\Type;
 use PDO;
 
+/**
+ * Class JsonType
+ * @package CodeBlastrUsers\Database\Type
+ *
+ * @todo This needs to move the core app me thinks, but again this would require making this plugin dependent on CodeBlastrFramework
+ */
 class JsonType extends Type
 {
 

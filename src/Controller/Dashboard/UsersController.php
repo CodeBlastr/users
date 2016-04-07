@@ -51,7 +51,7 @@ class UsersController extends AppController
 
     public function implementedEvents()
     {
-        return parent::implementedEvents() + ['Crud.beforeRender' => '_edit'];
+        return parent::implementedEvents() + ['Crud.beforeRender' => '_beforeRender'];
     }
 
     /**
@@ -59,10 +59,12 @@ class UsersController extends AppController
      *
      * @param $event
      */
-    public function _edit($event)
+    public function _beforeRender($event)
     {
-        if ($role = $event->subject()->entity->role) {
-            $this->Crud->action()->view($this->templateExists($this->viewBuilder(), ['suffix' => "_$role", 'plugin' => 'CodeBlastrUsers', 'templatePath' => 'Dashboard/Users', 'templateName' => 'edit']));
+        if ($this->request->action === 'edit') {
+            if ($role = $event->subject()->entity->role) {
+                $this->Crud->action()->view($this->templateExists($this->viewBuilder(), ['suffix' => "_$role", 'plugin' => 'CodeBlastrUsers', 'templatePath' => 'Dashboard/Users', 'templateName' => 'edit']));
+            }
         }
     }
 }

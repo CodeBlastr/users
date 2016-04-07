@@ -12,14 +12,16 @@ $this->set('contextMenu', $contextMenu);
 ?>
 
 <div class="users form columns row">
-    <div class="col-sm-8">
+    <div class="col-sm-9 col-md-7">
         <?= $this->Form->create($user); ?>
         <fieldset>
             <legend><?= __('Edit User') ?></legend>
             <?php
-            echo $this->Form->input('data.name', ['label' => 'Company Name']);
-            echo $this->Form->input('name');
-            echo $this->Form->input('email', ['require' => true, 'type' => 'email']);
+            echo $this->Form->input('data.company', ['label' => 'Company Name']);
+            echo $this->Form->input('name', ['require' => true]);
+            echo $this->Form->input('username', ['label' => 'Login Username', 'require' => true]);
+            echo $this->Form->input('email', ['label' => 'Contact Email', 'require' => true, 'type' => 'email']);
+            echo $this->Form->input('data.phone1', ['label' => 'Phone Number', 'type' => 'phone']);
             echo $this->Form->input('password', ['value' => false]);
             echo $this->Form->input('active', ['label' => 'Allow login?']);
             echo $this->Form->input('notify', ['type' => 'radio', 'options' => ['yes' => 'yes', 'no' => 'no']]);
