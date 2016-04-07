@@ -4,11 +4,11 @@ namespace CodeBlastrUsers\Controller\Dashboard;
 use App\Controller\AppController;
 use CodeBlastrUsers\Model\Table;
 use Cake\Core\Configure;
-use Cake\ORM\TableRegistry;
 
 class UsersController extends AppController
 {
     use \Crud\Controller\ControllerTrait;
+    use \CodeBlastrUsers\Traits\UtilityTrait;
 
     /**
      * Permissions management turned on
@@ -49,10 +49,20 @@ class UsersController extends AppController
         parent::initialize();
     }
 
-    public function edit()
+    public function implementedEvents()
     {
-        $users = TableRegistry::get('CodeBlastrUsers.Users');
-        $this->set('roles', $roles = $users->find('roles'));
-        return $this->Crud->execute();
+        return parent::implementedEvents() + ['Crud.beforeRender' => '_edit'];
+    }
+
+    /**
+     * Modify the template file name
+     *
+     * @param $event
+     */
+    public function _edit($event)
+    {
+        if ($role = $event->subject()->entity->role) {
+            $this->Crud->action()->view($this->templateExists($this->viewBuilder(), ['suffix' => "_$role", 'plugin' => 'CodeBlastrUsers', 'templatePath' => 'Dashboard/Users', 'templateName' => 'edit']));
+        }
     }
 }
