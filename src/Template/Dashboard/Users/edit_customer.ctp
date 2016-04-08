@@ -16,16 +16,22 @@ $this->set('contextMenu', $contextMenu);
         <?= $this->Form->create($user); ?>
         <fieldset>
             <legend><?= __('Edit User') ?></legend>
-            <?php
-            echo $this->Form->input('data.company', ['label' => 'Company Name']);
-            echo $this->Form->input('name', ['require' => true]);
-            echo $this->Form->input('username', ['label' => 'Login Username', 'require' => true]);
-            echo $this->Form->input('email', ['label' => 'Contact Email', 'require' => true, 'type' => 'email']);
-            echo $this->Form->input('data.phone1', ['label' => 'Phone Number', 'type' => 'phone']);
-            echo $this->Form->input('password', ['value' => false]);
-            echo $this->Form->input('active', ['label' => 'Allow login?']);
-            echo $this->Form->input('notify', ['type' => 'radio', 'options' => ['yes' => 'yes', 'no' => 'no']]);
-            ?>
+            <?= $this->Form->input('data.company', ['label' => 'Company Name']) ?>
+            <?= $this->Form->input('name', ['require' => true]) ?>
+            <?= $this->Form->input('username', ['label' => 'Login Username', 'require' => true]) ?>
+            <?= $this->Form->input('email', ['label' => 'Contact Email', 'require' => true, 'type' => 'email']) ?>
+            <?= $self === true ? $this->Form->input('password', ['value' => false]) : null ?>
+            <?= $this->Form->input('data.phone1', ['label' => 'Phone Number', 'type' => 'phone']) ?>
+
+            <?= $this->Form->input('data.price_tier', ['options' => ['msrp' => 'MSRP', 'wholesale' => 'Wholesale']]) ?>
+
+            <?= $this->Form->input('data.minimum_order', ['prepend' => '$']) ?>
+            <?= $this->Form->input('data.payment_terms', ['append' => 'days', 'default' => 0]) ?>
+            <?= $this->Form->input('data.rep') ?>
+
+            <?= $isSuperuser === true ? $this->Form->input('active', ['label' => 'Allow login?']) : null ?>
+            <?= $isSuperuser === true ? $this->Form->input('data.notify', ['type' => 'radio', 'options' => ['yes' => 'yes', 'no' => 'no']]) : null ?>
+
         </fieldset>
         <?= $this->Form->button(__('Submit'), ['class' => 'btn-primary']) ?>
         <?= $this->Form->end() ?>

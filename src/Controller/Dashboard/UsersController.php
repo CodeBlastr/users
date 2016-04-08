@@ -4,6 +4,7 @@ namespace CodeBlastrUsers\Controller\Dashboard;
 use App\Controller\AppController;
 use CodeBlastrUsers\Model\Table;
 use Cake\Core\Configure;
+use Cake\Utility\Hash;
 
 class UsersController extends AppController
 {
@@ -58,13 +59,28 @@ class UsersController extends AppController
      * Modify the template file name
      *
      * @param $event
+     * @todo Maybe 'staff' needs to be some kind of config setting?
      */
     public function _beforeRender($event)
     {
         if ($this->request->action === 'edit') {
+
+            $this->viewVars['self'] = false;
+            if ($this->request->session()->read('Auth.User.id') === $event->subject()->id) {
+                $this->viewVars['self'] = true;
+            }
+
+            $this->viewVars['isSuperuser'] = false;
+            if ($this->request->session()->read('Auth.User.is_superuser')) {
+                $this->viewVars['isSuperuser'] = true;
+            }
+
+            $this->viewVars['reps'] = Hash::combine($event->subject()->repository->findByRole('staff')->toArray(), '{n}.id', '{n}.name');
+
             if ($role = $event->subject()->entity->role) {
                 $this->Crud->action()->view($this->templateExists($this->viewBuilder(), ['suffix' => "_$role", 'plugin' => 'CodeBlastrUsers', 'templatePath' => 'Dashboard/Users', 'templateName' => 'edit']));
             }
+
         }
     }
 }

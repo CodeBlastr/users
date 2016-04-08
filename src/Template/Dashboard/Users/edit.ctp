@@ -15,7 +15,7 @@ $this->set('contextMenu', $contextMenu);
             <?php
             echo $this->Form->input('name');
             echo $this->Form->input('email', ['require' => true, 'type' => 'email']);
-            echo $this->Form->input('password', ['value' => false]);
+            echo $self === true ? $this->Form->input('password', ['value' => false]) : null;
             echo $this->Form->input('active', ['label' => 'Allow login?']);
             echo $this->Form->input('notify', ['type' => 'radio', 'options' => ['yes' => 'yes', 'no' => 'no']]);
             ?>
