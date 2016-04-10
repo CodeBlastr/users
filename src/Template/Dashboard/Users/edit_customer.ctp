@@ -15,7 +15,7 @@ $this->set('contextMenu', $contextMenu);
     <div class="col-sm-9 col-md-7">
         <?= $this->Form->create($user); ?>
         <fieldset>
-            <legend><?= __('Edit User') ?></legend>
+            <legend><?= __('Edit {0}', $user['name']) ?></legend>
             <?= $this->Form->input('data.company', ['label' => 'Company Name']) ?>
             <?= $this->Form->input('name', ['require' => true]) ?>
             <?= $this->Form->input('username', ['label' => 'Login Username', 'require' => true]) ?>
