@@ -165,13 +165,12 @@ class UsersTable extends UsersTable
     public function afterSave(Event $event, EntityInterface $entity, ArrayObject $options)
     {
         if ($this->procreate === true) {
-            $email = new Email('default');
-            $email = $email->from(['info@wholesale360.com' => 'My Site'])
-                ->to('richard@razorit.com')
+            $email = new Email();
+            $email = $email->template('default', 'default')
+                ->to('test@example.com')
                 ->subject('About')
-                ->send('My message');
+                ->send();
             debug($email);
-            //debug($email->sender('richard@razorit.com', 'MyApp emailer', 'any message'));
             exit;
         }
 

@@ -25,7 +25,9 @@
         "admad/cakephp-jwt-auth": "^2.0",
         "cakedc/users": "*",
 
-        "phpunit/phpunit": "~4.1"
+        "phpunit/phpunit": "~4.1",
+
+        "codeblastr/queue": "*"
     },
     "autoload": {
         "psr-4": {
