@@ -15,12 +15,19 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\I18n\Time;
 use Cake\Utility\Hash;
+use Cake\Mailer\Email;
 
 use Cake\Database\Schema\Table as Schema;
 
 
 class UsersTable extends UsersTable
 {
+    /**
+     * Is this user being created by someone besides themselves?
+     *
+     * @var bool
+     */
+    public $procreate = false;
 
     /**
      * Initialize method
@@ -65,9 +72,10 @@ class UsersTable extends UsersTable
             ->requirePresence('username', 'create')
             ->notEmpty('username');
 
-        $validator
-            ->requirePresence('password', 'create')
-            ->allowEmpty('password');
+        // we don't require a password, because if there isn't one we'll generate one
+//        $validator
+//            ->requirePresence('password', 'create')
+//            ->allowEmpty('password');
 
         $validator
             ->boolean('active')
@@ -93,6 +101,10 @@ class UsersTable extends UsersTable
      * Before Marshal callback
      * Event is fired before request data is converted into entities
      *
+     * 1. split the name field into first_name, last_name
+     * 2. remove the password field so we don't clear someone's password by accident
+     * 3. If tos is incoming, changes it to the actual db column name and timestamp
+     *
      * @param Event $event
      * @param ArrayObject $data
      * @param ArrayObject $options
@@ -117,7 +129,9 @@ class UsersTable extends UsersTable
     /**
      * Before Save Callback
      *
-     * If tos is incoming, changes it to the actual db column name and timestamp
+     * 1. make the email equal the username if email is empty and it's a new entry
+     * 2. make the username the email if the username is empty and it's a new entry
+     * 3. create a password if it is empty and it's a new entry
      *
      * @param Event $event
      * @param EntityInterface $entity
@@ -131,7 +145,38 @@ class UsersTable extends UsersTable
         if ($entity->isNew() && empty($entity->username) && !empty($entity->email)) {
             $entity->username = $entity->email;
         }
+        if ($entity->isNew() && empty($entity->password)) {
+            if ($entity->active === true) {
+                $this->procreate = true;
+            }
+            $entity->password = $this->_randomPassword();
+        }
         return true;
+    }
+
+    /**
+     * After save callback
+     * 2. If no password, and active is true then email a link to create a password
+     *
+     * @param Event $event
+     * @param EntityInterface $entity
+     * @param ArrayObject $options
+     */
+    public function afterSave(Event $event, EntityInterface $entity, ArrayObject $options)
+    {
+        if ($this->procreate === true) {
+            $email = new Email('default');
+            $email = $email->from(['info@wholesale360.com' => 'My Site'])
+                ->to('richard@razorit.com')
+                ->subject('About')
+                ->send('My message');
+            debug($email);
+            //debug($email->sender('richard@razorit.com', 'MyApp emailer', 'any message'));
+            exit;
+        }
+
+        debug('well it is after');
+        exit;
     }
 
     /**
@@ -169,6 +214,20 @@ class UsersTable extends UsersTable
     {
         $roles = $this->find()->select('role')->distinct('role')->extract('role')->toArray();
         return Hash::combine($roles, '{n}', '{n}');
+    }
+
+    /**
+     * Random string generator
+     *
+     * @return string
+     * @todo maybe this should be a utility function??
+     */
+    public function _randomPassword() {
+        $pass = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz'),0,5);
+        $pass .= substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,5);
+        $pass .= substr(str_shuffle('012*345$6789!'),0,5);
+        $pass = substr(str_shuffle($pass),0,12);
+        return $pass;
     }
 
 
