@@ -72,22 +72,30 @@ class UsersTableTest extends TestCase
      *
      * @return void
      */
-    public function testSave_no_password()
-    {
-        $data = ['username' => 'something@something.com'];
-        $user = $this->Users->newEntity($data);
-        $this->assertTrue(!empty($user->errors()));
-        $this->assertTrue($this->Users->save($user) === false);
-    }
+//    public function testSave_no_password()
+//    {
+//        $data = ['username' => 'something@something.com'];
+//        $user = $this->Users->newEntity($data);
+//        $this->assertTrue(!empty($user->errors()));
+//        $this->assertTrue($this->Users->save($user) === false);
+//    }
 
     /**
      * Test testSave method
      *
      * @return void
      */
-    public function testSave()
-    {
-        $data = ['username' => 'something@something.com', 'password' => 'Test123'];
+//    public function testSave()
+//    {
+//        $data = ['username' => 'something@something.com', 'password' => 'Test123'];
+//        $user = $this->Users->newEntity($data);
+//        $this->assertTrue(empty($user->errors()));
+//        $this->Users->save($user);
+//        $this->assertTrue(!empty($user->id));
+//    }
+
+    public function testProcreate() {
+        $data = ['username' => 'something@something.com', 'active' => 1];
         $user = $this->Users->newEntity($data);
         $this->assertTrue(empty($user->errors()));
         $this->Users->save($user);
