@@ -13,7 +13,7 @@ $this->set('contextMenu', $contextMenu);
             <legend><?= __('Add User') ?></legend>
             <?php
                 echo $this->Form->input('role', ['type' => 'hidden']);
-                echo $this->Form->input('full_name', ['label' => 'Name']);
+                echo $this->Form->input('name', ['label' => 'Name']);
                 echo $this->Form->input('email', ['require' => true, 'type' => 'email']);
                 echo $this->Form->input('password');
                 echo $this->Form->input('active');
