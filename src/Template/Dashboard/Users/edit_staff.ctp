@@ -1,0 +1,35 @@
+<?php
+/**
+ * @todo This file doesn't quite work the way I'd like (because not every site will have "customers"), but need to get this platform going, and not sure how else it might work to have "many" sites but not "all" sites use this file.
+ *
+ */
+@$contextMenu['append'] .= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id], ['class' => 'active disabled list-group-item']);
+@$contextMenu['append'] .= $this->Form->postLink(('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'btn-danger list-group-item']);
+@$contextMenu['append'] .= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'list-group-item']);
+@$contextMenu['append'] .= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'list-group-item']);
+
+$this->set('contextMenu', $contextMenu);
+?>
+
+<div class="users form columns row">
+    <div class="col-sm-9 col-md-7">
+        <?= $this->Form->create($user); ?>
+        <?= $this->Form->input('redirect', ['value' => '/dashboard/users/users?filter=equals&equals%5Brole%5D=customer', 'type' => 'hidden']) ?>
+        <fieldset>
+            <legend><?= __('Edit {0}', $user['name']) ?></legend>
+            <?= $this->Form->input('name', ['label' => 'Full Name', 'require' => true]) ?>
+            <?= $this->Form->input('data.title', ['label' => 'Title']) ?>
+            <?= $this->Form->input('username', ['label' => 'Login Username', 'require' => true]) ?>
+            <?= $this->Form->input('email', ['label' => 'Contact Email', 'require' => true, 'type' => 'email']) ?>
+            <?= $self === true ? $this->Form->input('password', ['value' => false]) : null ?>
+            <?= $this->Form->input('data.phone1', ['label' => 'Phone Number', 'type' => 'phone']) ?>
+
+            <?= $this->Form->input('data.commission', ['append' => '%', 'default' => 0]) ?>
+
+            <?= $isSuperuser === true ? $this->Form->input('active', ['label' => 'Allow login?']) : null ?>
+
+        </fieldset>
+        <?= $this->Form->button(__('Submit'), ['class' => 'btn-primary']) ?>
+        <?= $this->Form->end() ?>
+    </div>
+</div>
