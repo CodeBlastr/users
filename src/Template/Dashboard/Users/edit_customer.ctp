@@ -14,10 +14,11 @@ $this->set('contextMenu', $contextMenu);
 <div class="users form columns row">
     <div class="col-sm-9 col-md-7">
         <?= $this->Form->create($user); ?>
+        <?= $this->Form->input('redirect', ['value' => '/dashboard/users/users?filter=equals&equals%5Brole%5D=customer', 'type' => 'hidden']) ?>
         <fieldset>
             <legend><?= __('Edit {0}', $user['name']) ?></legend>
             <?= $this->Form->input('data.company', ['label' => 'Company Name']) ?>
-            <?= $this->Form->input('name', ['require' => true]) ?>
+            <?= $this->Form->input('name', ['label' => 'Full Name', 'require' => true]) ?>
             <?= $this->Form->input('username', ['label' => 'Login Username', 'require' => true]) ?>
             <?= $this->Form->input('email', ['label' => 'Contact Email', 'require' => true, 'type' => 'email']) ?>
             <?= $self === true ? $this->Form->input('password', ['value' => false]) : null ?>
@@ -27,7 +28,7 @@ $this->set('contextMenu', $contextMenu);
 
             <?= $this->Form->input('data.minimum_order', ['prepend' => '$']) ?>
             <?= $this->Form->input('data.payment_terms', ['append' => 'days', 'default' => 0]) ?>
-            <?= $this->Form->input('data.rep') ?>
+            <?= $this->Form->input('data.rep', ['empty' => 'House Account (no rep)']) ?>
 
             <?= $isSuperuser === true ? $this->Form->input('active', ['label' => 'Allow login?']) : null ?>
             <?= $isSuperuser === true ? $this->Form->input('data.notify', ['type' => 'radio', 'options' => ['yes' => 'yes', 'no' => 'no']]) : null ?>
