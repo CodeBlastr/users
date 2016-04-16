@@ -8,7 +8,7 @@
 $this->set('contextMenu', $contextMenu);
 ?>
 <div class="users view columns">
-    <h2><?= h($user->full_name) ?></h2>
+    <h2><?= h($user->name) ?></h2>
     <div class="row">
         <div class="col-lg-5 columns strings">
             <div class="panel panel-default">
