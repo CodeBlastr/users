@@ -2,9 +2,12 @@
 namespace CodeBlastrUsers\Controller\Dashboard;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
+use CodeBlastrUsers\Model\Entity\User;
 use CodeBlastrUsers\Model\Table;
 use Cake\Core\Configure;
 use Cake\Utility\Hash;
+use Cake\Event\Event;
 
 class UsersController extends AppController
 {
@@ -50,37 +53,62 @@ class UsersController extends AppController
         parent::initialize();
     }
 
-    public function implementedEvents()
+    /**
+     * @param Event $event
+     * @return \Cake\Network\Response|null
+     */
+    public function beforeFilter(\Cake\Event\Event $event)
     {
-        return parent::implementedEvents() + ['Crud.beforeRender' => '_beforeRender'];
+        $this->Crud->on('setFlash', function ($event) {
+            unset($event->subject->params['class']);
+            $event->subject->element = ltrim($event->subject->type);
+        });
+        return parent::beforeFilter($event);
     }
 
-    /**
-     * Modify the template file name
-     *
-     * @param $event
-     * @todo Maybe 'staff' needs to be some kind of config setting?
-     */
-    public function _beforeRender($event)
+    public function add()
     {
-        if ($this->request->action === 'edit') {
+        $this->viewVars['isSuperuser'] = false;
+        if ($this->request->session()->read('Auth.User.is_superuser')) {
+            $this->viewVars['isSuperuser'] = true;
+        }
 
-            $this->viewVars['self'] = false;
-            if ($this->request->session()->read('Auth.User.id') === $event->subject()->id) {
-                $this->viewVars['self'] = true;
+        $this->Crud->on('beforeRender', function (Event $event) {
+            $this->viewVars['reps'] = Hash::combine(TableRegistry::get('CodeBlastrUsers.Users')->findByRole('staff')->toArray(), '{n}.id', '{n}.name');
+            if ($role = $this->request->query['role']) {
+                $this->Crud->action()->view($this->templateExists($this->viewBuilder(), ['suffix' => "_$role", 'plugin' => 'CodeBlastrUsers', 'templatePath' => 'Dashboard/Users', 'templateName' => $this->request->action]));
             }
+        });
+        $this->Crud->execute();
+    }
 
-            $this->viewVars['isSuperuser'] = false;
-            if ($this->request->session()->read('Auth.User.is_superuser')) {
-                $this->viewVars['isSuperuser'] = true;
-            }
+    public function edit($id = null)
+    {
+        $this->viewVars['self'] = false;
+        if ($this->request->session()->read('Auth.User.id') === $id) {
+            $this->viewVars['self'] = true;
+        }
 
+        $this->viewVars['isSuperuser'] = false;
+        if ($this->request->session()->read('Auth.User.is_superuser')) {
+            $this->viewVars['isSuperuser'] = true;
+        }
+
+        $this->Crud->on('beforeRender', function (Event $event) {
             $this->viewVars['reps'] = Hash::combine($event->subject()->repository->findByRole('staff')->toArray(), '{n}.id', '{n}.name');
 
             if ($role = $event->subject()->entity->role) {
-                $this->Crud->action()->view($this->templateExists($this->viewBuilder(), ['suffix' => "_$role", 'plugin' => 'CodeBlastrUsers', 'templatePath' => 'Dashboard/Users', 'templateName' => 'edit']));
+                $this->Crud->action()->view($this->templateExists($this->viewBuilder(), ['suffix' => "_$role", 'plugin' => 'CodeBlastrUsers', 'templatePath' => 'Dashboard/Users', 'templateName' => $this->request->action]));
             }
+        });
+        return $this->Crud->execute();
+    }
 
-        }
+    /**
+     * @return array
+     */
+    public function implementedEvents()
+    {
+        return parent::implementedEvents() + ['Crud.beforeRender' => '_beforeRender'];
     }
 }
