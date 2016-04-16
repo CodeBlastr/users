@@ -77,4 +77,20 @@ trait UtilityTrait {
         }
         return $templateName;
     }
+
+    /**
+     * Override redirect for controlling
+     * where you end up after form submission
+     * from the form itself.
+     *
+     * @param $url
+     * @param int $status
+     * @todo not sure if parent::redirect is right here, since I believe it requires that the controller using this trait extend AppController.php (may need to copy the whole redirect function?)
+     */
+//    public function redirect($url, $status = 302) {
+//        if (!empty($this->request->data['redirect'])) {
+//            return parent::redirect($this->request->data['redirect'], $status);
+//        }
+//        return parent::redirect($url, $status);
+//    }
 }
