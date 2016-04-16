@@ -63,6 +63,6 @@ class User extends Entity
 
     protected function _getReverseName()
     {
-        return !empty($this->_properties['first_name']) && !empty($this->_properties['last_name']) ? $this->_properties['last_name'] . ', ' .  $this->_properties['first_name'] : $this->_getFullName();
+        return !empty($this->_properties['first_name']) && !empty($this->_properties['last_name']) ? $this->_properties['last_name'] . ', ' .  $this->_properties['first_name'] : $this->_getName();
     }
 }
